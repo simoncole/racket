@@ -1,20 +1,21 @@
 #lang racket
 
-(define  l0 '())
-(define l1 '( 1 2 3 4 5 6 7 8 9))
-(define l2 '(42 54 67 89 12 14 54 54 23))
-(define l3 '(1 5 7 9 0 -10 45 67 89 ))
+(define l1 '( 2 4 10 8 6))
+(define l2 '(3 12 42 54))
+(define l3 '(60 40 -10 0))
+(define l4 '(5 6))
+(define l5 '(0))
 
 
 (define findMin (lambda (l) (
             if (null? l)
-                -inf.0
-                (if (< (car l) (findMax (cdr l)))
+                +inf.0
+                (if (< (car l) (findMin (cdr l)))
                     (car l)
-                    (findMax (cdr l))
-                )
+                    (findMin (cdr l))
                 )
             )
+        )
   )
 
 (define findMax (lambda (l) (
@@ -28,3 +29,25 @@
                  )
   )
 
+
+(define (findMaxDiffSingleList l) (
+    - (findMax l) (findMin l)
+))
+
+( define (findMaxDiffTwoLists l1 l2) (
+        - (findMax l1) (findMin l2)
+    )
+)
+
+( define (findMaxDiffTwoListsReversed l1 l2) (
+        - (findMax l2) (findMin l1)    
+    )
+)
+
+(findMaxDiffSingleList l1)
+
+(findMaxDiffTwoLists l2 l3)
+(findMaxDiffTwoListsReversed l2 l3)
+
+(findMaxDiffTwoLists l4 l5)
+(findMaxDiffTwoListsReversed l4 l5)
