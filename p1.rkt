@@ -51,3 +51,7 @@
 
 (findMaxDiffTwoLists l4 l5)
 (findMaxDiffTwoListsReversed l4 l5)
+
+(findMaxDiffSingleList '())
+(findMaxDiffTwoLists '() '())
+(findMaxDiffTwoListsReversed '() '())
