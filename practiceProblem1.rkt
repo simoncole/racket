@@ -21,9 +21,15 @@
 (define n1 '('(0 18) '(1 22) '(2 33) '(3 22)))
 
 (define (checkColor prevColors nodes edges) (
-    
+
 ))
 
 
 
+;Graphs: shortest path Given graph G={N,E} with weighted edges said nodes n,  melement of N, find the
+;path from n to m with smallest total weight
 
+;imperative: you would do DFS, keeping track of the sum of the sum of your weights, the first time you
+; get to n would be the minimum path. 
+
+;in functional, 
