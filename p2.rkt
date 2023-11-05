@@ -19,14 +19,21 @@
 ;checks to see if a point is in the given circle
     ;returns boolean
 (define (isPointInCircle circle point) (
-
+    ;get the distance away form the center and check if it is < radius
+    ;distance between two poitns is pythagoren therom
 ))
 
 ;given a circle, and a point list check for each point if it is in the circle
     ;returns a list where the first element is the circle given and the second is a list of the 
     ;points that are in the circle
 (define (checkPointsInCircle circle points) (
-
+    if (null? (car points))
+        (list '(circle '()))
+        (
+            if (isPointInCircle? circle (car points)) ;does this work?
+            (cons (car points) (checkPointsInCircle (circle cons points)))
+            (checkPointsInCircle (circle cons points))
+        )
 ))
 
 ;recurse through circles checking the pList for each
