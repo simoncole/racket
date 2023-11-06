@@ -8,7 +8,7 @@
 (define plist6 (list '(0 0) '(100 100) '(0 0) '(1 2) '(3 4)))
 (define plist7 '())
 
-(define clist1 (list '(6 2 2) '(3 3 3) '(1 1 1)))
+(define clist1 (list '(6 2 20) '(3 3 3) '(1 1 1)))
 
 ;return a list having the circle that contains the most points and the list of points in the circle
 ;for each circle, check each point to see if it's in the circle
@@ -31,11 +31,12 @@
       #f))
 
 ;given a circle, and a point list check for each point if it is in the circle
-    ;returns a list where the first element is the circle given and the second is a list of the 
-    ;points that are in the circle
+    ;returns a list of points in the circle
 (define (checkPointsInCircle circle points) (
+    ; (displayln circle)
+    ; (displayln points)
     if (null? points)
-        (void)
+        '()
         (
             if (isPointInCircle? circle (car points))
             (cons (car points) (checkPointsInCircle circle (cdr points)))
@@ -48,13 +49,13 @@
 ;   if the points is greater by the time you get to the end you return the max points list and the circle 
 (define (checkCircles cList pList maxPointsCircle) (
     if (null? (car cList)) 
-    (maxPointsCircle)
+    maxPointsCircle
     (
         ;points in the current circle
-        let ([currCirclePoints (checkPointsInCircle (car cList) pList)])
+        let ([currCirclePoints (cons (car cList) (list (checkPointsInCircle (car cList) pList)))])
         (displayln currCirclePoints)
         ;if there are more points for the current circle
-        (if ((length (list-ref currCirclePoints 2)) > (length (list-ref maxPointsCircle 2)))
+        (if ((length (cdr currCirclePoints)) > (length (cdr maxPointsCircle)))
             (
                 ;continue with new circle
                 checkCircles (cdr cList) pList currCirclePoints
@@ -66,6 +67,6 @@
     )
 ))
 
-; (checkCircles clist1 plist6 0)
+(checkCircles clist1 plist4 0)
 
-(checkPointsInCircle '(0 0 5) '((3 4) (1 2) (6 7) (0 0)))
+; (checkPointsInCircle '(6 2 20) '((5 5) (5 5) (5 5)))
