@@ -1,14 +1,16 @@
 #lang racket
 
-(define plist1 (list '(0 0) '(4 0) '(0 4) '(4 4)))
-(define plist2 (list '(24 5 )'(1 22 ) '(1 43 ) '(24 29 ) '(19 47 ) '(16 28 ) '(33 33 ) '(39 22 ) '(49 17 ) '(25 36 ) ))
-(define plist3 (list '(43 23 ) '(33 16 ) '(9 29 ) '(5 9 ) '(47 0 ) '(50 46 ) '(12 22 ) '(11 31 ) '(29 19 ) '(48 39 ) ))
+(define plist1 (list  '(5 5) '(10 10) '(15 15)))
+(define plist2 (list '(5 5) '(1 10) '(10 15) '(10 19) '(19 10) '(18 18)))
+(define plist3 (list '(7 8) '(15 5) '(18 18) '(22 23)))
 (define plist4 (list '(5 5) '(5 5) '(5 5)))
 (define plist5 (list '(0 0) '(5 0) '(10 0)))
 (define plist6 (list '(0 0) '(100 100) '(0 0) '(1 2) '(3 4)))
 (define plist7 '())
 
-(define clist1 (list '(6 2 20) '(3 3 3) '(1 1 1)))
+(define clist1 (list '(0 0 1)))
+(define clist2 (list '(10 10 10) '( 20 20 20)))
+(define clist3 (list '(5 10 5) '(20 20 5)))
 
 ;return a list having the circle that contains the most points and the list of points in the circle
 ;for each circle, check each point to see if it's in the circle
@@ -44,29 +46,14 @@
         )
 ))
 
-;recurse through circles checking the pList for each
-;   return list of circle with most points and the points contained in it
-;   if the points is greater by the time you get to the end you return the max points list and the circle 
-(define (checkCircles cList pList maxPointsCircle) (
-    if (null? (car cList)) 
-    maxPointsCircle
+;use map
+(define (checkCircles cList pList) 
     (
-        ;points in the current circle
-        let ([currCirclePoints (cons (car cList) (list (checkPointsInCircle (car cList) pList)))])
-        (displayln currCirclePoints)
-        ;if there are more points for the current circle
-        (if ((length (cdr currCirclePoints)) > (length (cdr maxPointsCircle)))
-            (
-                ;continue with new circle
-                checkCircles (cdr cList) pList currCirclePoints
-            )
-            (
-                checkCircles (cdr cList) pList maxPointsCircle
-            )
-        )
+        ;map over each circle and find the max points in the resulting array.
+        map (lambda (circle) (cons circle (list (checkPointsInCircle circle pList)))) cList
     )
-))
+)
 
-(checkCircles clist1 plist4 0)
-
-; (checkPointsInCircle '(6 2 20) '((5 5) (5 5) (5 5)))
+; (checkCircles clist1 plist1)
+; (checkCircles clist2 plist2)
+(checkCircles clist3 plist3)
