@@ -46,14 +46,27 @@
         )
 ))
 
+(define (getLengthOfList list) (
+    length (car (cdr list))
+))
+
+(define (filterForLargestList lists) (
+    ;for each list counting the cdr of 
+    map getLengthOfList lists
+))
+
 ;use map
 (define (checkCircles cList pList) 
     (
-        ;map over each circle and find the max points in the resulting array.
-        map (lambda (circle) (cons circle (list (checkPointsInCircle circle pList)))) cList
+        ;map over each circle and find the max points in the resulting array. filter out the largest list
+        filterForLargestList (map (lambda (circle) (cons circle (list (checkPointsInCircle circle pList)))) cList)
     )
 )
 
 ; (checkCircles clist1 plist1)
 ; (checkCircles clist2 plist2)
-(checkCircles clist3 plist3)
+; (checkCircles clist3 plist3)
+
+; (checkPointsInCircle)
+(filterForLargestList '(((5 10 5) ((7 8))) ((20 20 5) ((18 18) (22 23)))))
+; ((5 10 5) ((7 8))) ((20 20 5) ((18 18) (22 23)))
