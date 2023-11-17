@@ -1,5 +1,10 @@
 #lang racket
 
+;I almost finished but after quite some effort I couldn't figure out how to filter out the largest
+;list of coordinates. As you can see when you run it it returns a list of each circle and how many points
+;it contains, I tried to write a function that would filter out the largest of these lists but it was
+;surprisingly hard. I'll be going to Dr. Garfield to ask him how I should do it.
+
 (define plist1 (list  '(5 5) '(10 10) '(15 15)))
 (define plist2 (list '(5 5) '(1 10) '(10 15) '(10 19) '(19 10) '(18 18)))
 (define plist3 (list '(7 8) '(15 5) '(18 18) '(22 23)))
@@ -46,27 +51,34 @@
         )
 ))
 
-(define (getLengthOfList list) (
-    length (car (cdr list))
-))
+; (define (getLengthOfList list) (
+;     length (car (cdr list))
+; ))
 
-(define (filterForLargestList lists) (
-    ;for each list counting the cdr of 
-    map getLengthOfList lists
-))
+; (define (mapLists lists) (
+;     ;for each list counting the cdr of 
+;     map getLengthOfList lists
+; ))
+
+; (define (filterForLargestList lists)
+;   (if (null? lists)
+;       '()
+;       (if (> (length (car lists)) (length (filterForLargestList (cdr lists))))
+;           (car lists)
+;           (filterForLargestList (cdr lists)))
+;     )
+; )
 
 ;use map
 (define (checkCircles cList pList) 
     (
         ;map over each circle and find the max points in the resulting array. filter out the largest list
-        filterForLargestList (map (lambda (circle) (cons circle (list (checkPointsInCircle circle pList)))) cList)
+         map (lambda (circle) (cons circle (list (checkPointsInCircle circle pList)))) cList
     )
 )
 
-; (checkCircles clist1 plist1)
-; (checkCircles clist2 plist2)
-; (checkCircles clist3 plist3)
-
+(checkCircles clist1 plist1)
+(checkCircles clist2 plist2)
+(checkCircles clist3 plist3)
+(((5 10 5) ((7 8))) ((20 20 5) ((18 18) (22 23))))
 ; (checkPointsInCircle)
-(filterForLargestList '(((5 10 5) ((7 8))) ((20 20 5) ((18 18) (22 23)))))
-; ((5 10 5) ((7 8))) ((20 20 5) ((18 18) (22 23)))
