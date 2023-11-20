@@ -33,36 +33,36 @@
     )
 )
 
-;visit when there are no children. Once it has come back from visiting with no children,
-; check if there are other children and repeat for those
-; (define (depthFirstTraversal tree) (
-;     if (isLeaf(cdr tree))
-;     ;no children
-;     (
-;         cons ((car tree) tree)
-
-;     )
-;     ;there are children
-;     (
-;         ;recurese on each child
-;         depthFirstTraversal (cadr tree)
-;     )
-; ))
-
 (define (depthFirstPostorder tree)
     (cond
         ; if tree is empty
         [(null? tree) '()] 
         ;check if leafNode, return node
         [(isLeaf tree) tree]
-        ;append val of node with list of vals of child nodes
-        ;apply append to the lists of children to combine them into a single list
         [else
-            (append (apply append (map depthFirstPostorder (cdr tree)))
-                    (list (car tree))
+            ;flatten fixes the list structure
+            (flatten
+                ;map over children and add them to the list with the curr element after         
+                (cons (append (map depthFirstPostorder (cdr tree)))
+                        (car tree)
+                )
             )
         ]
     )
 )
 
+
+;add this node to the list, if there are children recurse 
+(define (breadthFirst tree) (
+    cond
+        [(null? tree) '()]
+        [(isLeaf tree) tree]
+        [else 
+            (apply append (list (car tree))
+                (map breadthFirst (cdr tree)))
+        ]
+))
+
 (depthFirstPostorder t1)
+; (breadthFirst t1)
+; (depthFirstTraversal t1)
