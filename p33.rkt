@@ -51,18 +51,35 @@
     )
 )
 
+;visit and remove from queue then add its children to the queue, add the whole tree to the queue
+(define (traverse queue result) (
+      if (null? queue) result (
+       ;remove car of queue and add its car (the value) to result
+       ;add each child to the queue as a seperate element at the end of queue 
+       ;recurse with the new queue and result
+       traverse (append (cdr queue) (cdr (car queue))) (flatten (cons result (car (car queue))))
+       )                    
+ )
+                    
+      
+)
 
-;add this node to the list, if there are children recurse 
 (define (breadthFirst tree) (
-    cond
-        [(null? tree) '()]
-        [(isLeaf tree) tree]
-        [else 
-            (apply append (list (car tree))
-                (map breadthFirst (cdr tree)))
-        ]
+    traverse (list tree) '()
 ))
 
-(depthFirstPostorder t1)
-; (breadthFirst t1)
+;add this node to the list, if there are children recurse 
+; (define (breadthFirst tree) (
+;     cond
+;         [(null? tree) '()]
+;         [(isLeaf tree) tree]
+;         [else 
+;             (apply append (list (car tree))
+;                 (map breadthFirst (cdr tree)))
+;         ]
+; ))
+
+;(depthFirstPostorder t1)
+ (breadthFirst t1)
 ; (depthFirstTraversal t1)
+
